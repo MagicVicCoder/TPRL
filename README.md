@@ -62,17 +62,7 @@ python train_ppo.py
 python main.py
 ```
 
-详细使用说明请查看 [QUICKSTART.md](QUICKSTART.md)
 
-## 📊 性能
-
-在LLaVA-1.5-7B上的结果:
-
-| 方法 | Token保留率 | FLOPs减少 | 准确率下降 |
-|------|------------|-----------|-----------|
-| 无剪枝 | 100% | 0% | 0% |
-| Random | 50% | 25% | -3.2% |
-| **TPRL** | **33.3%** | **54.2%** | **-0.7%** |
 
 ## 📁 项目结构
 
@@ -93,32 +83,7 @@ TPRL/
 └── main.py                 # 评估脚本
 ```
 
-## 🔧 配置
 
-主要超参数在 `config.py` 中:
-
-```python
-# 模型
-MODEL_ID = "llava-hf/llava-1.5-7b-hf"
-
-# LfD
-LFD_NUM_DEMOS = 50000
-LFD_NUM_EPOCHS = 5
-LFD_LEARNING_RATE = 5e-5
-
-# PPO
-PPO_NUM_EPOCHS = 200
-PPO_LR_ACTOR = 1e-5
-PPO_LR_CRITIC = 3e-5
-PPO_GAMMA = 0.99
-```
-
-## 📖 文档
-
-- [快速开始指南](QUICKSTART.md)
-- [详细使用说明](TPRL_README.md)
-- [实现细节](TPRL_IMPLEMENTATION_SUMMARY.md)
-- [LLaVA集成说明](LLAVA_INTEGRATION.md)
 
 ## 🎯 核心思想
 
@@ -144,35 +109,7 @@ reward = α × task_reward + β × efficiency_reward
 - Transformers >= 4.37.0
 - 其他依赖见 `requirements.txt`
 
-## 📝 引用
 
-如果使用此代码，请引用:
-
-```bibtex
-@article{tprl2024,
-  title={TPRL: Token Pruning via Reinforcement Learning for Vision-Language Models},
-  author={...},
-  year={2024}
-}
-```
-
-## 📄 许可证
-
-本项目采用 Apache 2.0 许可证 - 详见 [LICENSE](LICENSE) 文件
-
-## 🤝 贡献
-
-欢迎贡献! 请随时提交 Pull Request。
-
-## 📧 联系
-
-如有问题，请提交 [Issue](https://github.com/MagicVicCoder/TPRL/issues)
-
-## 🙏 致谢
-
-- [LLaVA](https://github.com/haotian-liu/LLaVA) - 视觉语言模型
-- [Qwen-VL](https://github.com/QwenLM/Qwen-VL) - 视觉语言模型
-- [Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3) - RL算法参考
 
 ---
 
