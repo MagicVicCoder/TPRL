@@ -1,0 +1,7 @@
+datasets==3.3.2
+numpy==2.2.6
+Pillow==11.3.0
+torch==2.8.0
+tqdm==4.67.1
+transformers==4.57.0
+qwen_vl_utils==0.0.14 # 如果直接使用transformers加载Qwen2.5-VL，可能不需要此包，除非有特殊处理需求
