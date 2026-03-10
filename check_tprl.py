@@ -218,5 +218,5 @@ def main():
 
 if __name__ == "__main__":
     import sys
-    os.chdir("/data/users/csh/LVLMs_pruner")
+    os.chdir("/data/users/csh/TPRL")
     sys.exit(main())
