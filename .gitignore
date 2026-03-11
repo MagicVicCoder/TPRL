@@ -42,7 +42,7 @@ logs/
 *.ckpt
 
 # Data
-data/
+# data/  # Commented out to include data folder
 datasets/
 *.h5
 *.hdf5
