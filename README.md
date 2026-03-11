@@ -1,47 +1,47 @@
-# TPRL: Token Pruning via Reinforcement Learning
+# Token Pruning via Reinforcement Learning
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
 
-基于强化学习的视觉token剪枝框架，用于加速大型视觉语言模型(LVLMs)的推理。
+A reinforcement-learning-based visual token pruning framework to accelerate inference of Large Vision Language Models (LVLMs).
 
-## 🌟 特性
+## 🌟 Features
 
-- ✅ **强化学习优化**: 使用PPO算法学习自适应剪枝策略
-- ✅ **任务感知**: 直接优化下游任务性能
-- ✅ **多步剪枝**: 渐进式token剪枝，学习最优轨迹
-- ✅ **高效推理**: 移除最多66.7%的视觉token，减少54.2%的FLOPs
-- ✅ **支持多模型**: LLaVA-1.5-7B/13B, Qwen2.5-VL等
+* ✅ **Reinforcement-Learning Optimization**: Learn adaptive pruning policies using PPO.
+* ✅ **Task-Aware**: Directly optimizes downstream task performance.
+* ✅ **Multi-step Pruning**: Progressive token pruning that learns optimal pruning trajectories.
+* ✅ **Efficient Inference**: Removes up to 66.7% of visual tokens and reduces FLOPs by 54.2%.
+* ✅ **Multi-model Support**: Works with LLaVA-1.5-7B/13B, Qwen2.5-VL, and others.
 
-## 📋 方法概述
+## 📋 Method Overview
 
-TPRL将视觉token剪枝建模为马尔可夫决策过程(MDP):
+TPRL formulates visual token pruning as a Markov Decision Process (MDP):
 
-1. **Learning from Demonstrations (LfD)**: 使用启发式方法生成演示轨迹，预训练策略网络
-2. **PPO Fine-tuning**: 使用Proximal Policy Optimization微调策略，优化任务性能和计算效率
-3. **Inference**: 一次性剪枝，保留最重要的视觉token
+1. **Learning from Demonstrations (LfD)**: Generate demonstration trajectories using heuristics and pretrain the policy network.
+2. **PPO Fine-tuning**: Fine-tune the policy with Proximal Policy Optimization to jointly optimize task performance and computational efficiency.
+3. **Inference**: One-shot pruning that retains the most important visual tokens.
 
-### 架构
+### Architecture
 
 ```
-视觉输入 → ViT → Projector → [TPRL剪枝] → LLM → 输出
+visual input → ViT → Projector → [TPRL pruner] → LLM → output
 ```
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### 安装
+### Installation
 
 ```bash
-# 克隆仓库
+# Clone the repository
 git clone https://github.com/MagicVicCoder/TPRL.git
 cd TPRL
 
-# 安装依赖
+# Install requirements
 pip install -r requirements.txt
 ```
 
-### 训练
+### Training
 
 #### Step 1: Learning from Demonstrations
 
@@ -52,65 +52,60 @@ python train_lfd.py
 #### Step 2: PPO Training
 
 ```bash
-# 在config.py中设置LfD checkpoint路径
+# Set the LfD checkpoint path in config.py first
 python train_ppo.py
 ```
 
-### 评估
+### Evaluation
 
 ```bash
 python main.py
 ```
 
-
-
-## 📁 项目结构
+## 📁 Project Structure
 
 ```
 TPRL/
 ├── model/
-│   ├── autoencoder.py      # Token压缩(可选)
-│   ├── rl_networks.py      # Policy和Value网络
-│   ├── llava_mllm.py       # LLaVA模型
-│   └── qwen_mllm.py        # Qwen模型
+│   ├── autoencoder.py      # Token compression (optional)
+│   ├── rl_networks.py      # Policy and value networks
+│   ├── llava_mllm.py       # LLaVA model wrapper
+│   └── qwen_mllm.py        # Qwen model wrapper
 ├── pruner/
 │   ├── rl_pruner.py        # RL-based pruner
-│   ├── random_pruner.py    # Baseline
-│   └── mlp_pruner.py       # MLP pruner
-├── train_lfd.py            # LfD训练
-├── train_ppo.py            # PPO训练
-├── config.py               # 配置文件
-└── main.py                 # 评估脚本
+│   ├── random_pruner.py    # Baseline random pruner
+│   └── mlp_pruner.py       # MLP-based pruner
+├── train_lfd.py            # LfD training script
+├── train_ppo.py            # PPO training script
+├── config.py               # Configuration
+└── main.py                 # Evaluation / inference script
 ```
 
-
-
-## 🎯 核心思想
+## 🎯 Core Idea
 
 ### MDP Formulation
 
-- **State**: (视觉token, 文本query)
-- **Action**: 每个token的保留/剪枝决策
-- **Reward**: 任务性能 + 计算效率
+* **State**: (visual tokens, text query)
+* **Action**: keep / prune decision for each token
+* **Reward**: downstream task performance + computational efficiency
 
-### 奖励函数
+### Reward Function
 
 ```python
-reward = α × task_reward + β × efficiency_reward
+reward = alpha * task_reward + beta * efficiency_reward
 ```
 
-- `task_reward`: 任务性能变化(IoU/准确率)
-- `efficiency_reward`: 压缩率
+* `task_reward`: change in task performance (e.g., IoU / accuracy)
+* `efficiency_reward`: compression / efficiency metric
 
-## 🛠️ 依赖
+## 🛠️ Requirements
 
-- Python >= 3.8
-- PyTorch >= 2.0
-- Transformers >= 4.37.0
-- 其他依赖见 `requirements.txt`
-
-
+* Python >= 3.8
+* PyTorch >= 2.0
+* Transformers >= 4.37.0
+* See `requirements.txt` for full dependency list
 
 ---
 
-⭐ 如果觉得有用，请给个Star!
+⭐ If you find this repository useful, please give it a Star!
+
