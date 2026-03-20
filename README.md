@@ -9,6 +9,7 @@ A reinforcement-learning-based visual token pruning framework to accelerate infe
 
 ## 📋 Method Overview
 
+
 TPRL formulates visual token pruning as a Markov Decision Process (MDP):
 
 1. **Learning from Demonstrations (LfD)**: Generate demonstration trajectories using heuristics and pretrain the policy network.
