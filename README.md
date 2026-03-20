@@ -101,6 +101,7 @@ reward = alpha * task_reward + beta * efficiency_reward
 ---
 
 ⭐ If you find this repository useful, please give it a Star and cite our paper!
+
 @misc{cao2026languageguidedtokencompressionreinforcement,
       title={Language-Guided Token Compression with Reinforcement Learning in Large Vision-Language Models}, 
       author={Sihan Cao and Jianwei Zhang and Pengcheng Zheng and Jiaxin Yan and Caiyan Qin and Yalan Ye and Wei Dong and Peng Wang and Yang Yang and Chaoning Zhang},
